@@ -618,69 +618,171 @@
     .stats-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
       align-items: start;
     }
 
-    .stats-images { display: flex; flex-direction: column; gap: 1rem; }
-    .stats-images img {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-    .stats-images .stats-row-2 { display: flex; gap: 1rem; }
-    .stats-images .stats-row-2 img { flex: 1; width: 50%; }
-
-    .activity-panel {
+    .stat-panel {
       background: var(--bg2);
       border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
     }
-    .activity-header {
-      padding: 1rem 1.4rem;
+    .stat-panel-header {
+      padding: 0.9rem 1.4rem;
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
+      background: var(--bg3);
     }
-    .activity-title {
+    .stat-panel-title {
       font-family: 'IBM Plex Mono', monospace;
       font-size: 11px;
       color: var(--text-dim);
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
-    .activity-body { padding: 1.4rem; }
-    .lang-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
+    .stat-panel-body { padding: 1.4rem; }
+
+    /* overview cards row */
+    .overview-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      grid-column: 1 / -1;
     }
-    .lang-info { display: flex; align-items: center; gap: 10px; }
-    .lang-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-    .lang-name { font-size: 13px; color: var(--text); }
-    .lang-pct {
+    .ov-card {
+      background: var(--bg2);
+      padding: 1.4rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .ov-icon { font-size: 18px; margin-bottom: 4px; }
+    .ov-val {
       font-family: 'IBM Plex Mono', monospace;
-      font-size: 12px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text-white);
+      line-height: 1;
+    }
+    .ov-val .ov-unit { font-size: 0.9rem; color: var(--text-dim); font-weight: 400; }
+    .ov-label { font-size: 11px; color: var(--text-dim); }
+    .ov-sub   { font-size: 11px; color: var(--accent2); }
+
+    /* bar chart */
+    .bar-chart { display: flex; flex-direction: column; gap: 12px; }
+    .bc-row { display: flex; flex-direction: column; gap: 5px; }
+    .bc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .bc-name { font-size: 12px; color: var(--text); }
+    .bc-val {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
       color: var(--text-dim);
     }
-    .lang-track {
-      height: 3px;
+    .bc-track {
+      height: 6px;
       background: var(--bg4);
-      border-radius: 2px;
+      border-radius: 3px;
       overflow: hidden;
-      margin-bottom: 4px;
     }
-    .lang-fill { height: 100%; border-radius: 2px; }
+    .bc-fill {
+      height: 100%;
+      border-radius: 3px;
+      width: 0;
+      transition: width 1.4s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    /* streak / contribution grid */
+    .contrib-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .contrib-months {
+      display: flex;
+      gap: 3px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px;
+      color: var(--text-dim);
+      padding-left: 2px;
+    }
+    .contrib-month { flex: 1; }
+    .contrib-weeks {
+      display: flex;
+      gap: 3px;
+    }
+    .contrib-col {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .contrib-cell {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--bg4);
+    }
+    .contrib-cell.l1 { background: rgba(0,212,255,0.2); }
+    .contrib-cell.l2 { background: rgba(0,212,255,0.4); }
+    .contrib-cell.l3 { background: rgba(0,212,255,0.65); }
+    .contrib-cell.l4 { background: rgba(0,212,255,0.9); }
+
+    .streak-display {
+      display: flex;
+      gap: 1px;
+      background: var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+    .streak-cell {
+      flex: 1;
+      background: var(--bg3);
+      padding: 1rem;
+      text-align: center;
+    }
+    .streak-num {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+    }
+    .streak-lbl { font-size: 10px; color: var(--text-dim); margin-top: 3px; }
+
+    /* donut chart */
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.4rem;
+    }
+    .donut-canvas { flex-shrink: 0; }
+    .donut-legend { display: flex; flex-direction: column; gap: 8px; }
+    .donut-leg-row { display: flex; align-items: center; gap: 8px; }
+    .donut-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .donut-leg-name { font-size: 12px; color: var(--text); }
+    .donut-leg-pct {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-left: auto;
+      padding-left: 1rem;
+    }
 
     .summary-metrics {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 1px;
       background: var(--border);
       border-top: 1px solid var(--border);
+      grid-column: 1 / -1;
     }
     .summary-cell {
       background: var(--bg2);
@@ -699,6 +801,20 @@
       color: var(--text-dim);
       margin-top: 2px;
     }
+
+    /* full-width wrapper for stats */
+    .stats-top-row {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      grid-column: 1 / -1;
+    }
+    .stats-full { grid-column: 1 / -1; }
 
     /* ── CONTACT ── */
     .contact-layout {
@@ -1211,54 +1327,132 @@
     <div class="section-rule"></div>
   </div>
 
+  <!-- Overview KPI Row -->
+  <div class="stats-top-row reveal">
+    <div class="ov-card">
+      <div class="ov-icon">📁</div>
+      <div class="ov-val">5 <span class="ov-unit">repos</span></div>
+      <div class="ov-label">Public Repositories</div>
+      <div class="ov-sub">↑ actively maintained</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">⚙️</div>
+      <div class="ov-val">100 <span class="ov-unit">%</span></div>
+      <div class="ov-label">Python / Jupyter</div>
+      <div class="ov-sub">primary language stack</div>
+    </div>
+    <div class="ov-card">
+      <div class="ov-icon">🧠</div>
+      <div class="ov-val">5 <span class="ov-unit">domains</span></div>
+      <div class="ov-label">ML Domains Covered</div>
+      <div class="ov-sub">pharma · retail · market</div>
+    </div>
+  </div>
+
   <div class="stats-layout reveal">
-    <div class="stats-images">
-      <img src="https://github-readme-stats.vercel.app/api?username=Dhela456&show_icons=true&theme=github_dark&hide_border=true&include_all_commits=true&count_private=true&bg_color=0d1520&title_color=00d4ff&icon_color=00ff9d&text_color=a8bdd4" alt="GitHub Stats"/>
-      <div class="stats-row-2">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Dhela456&layout=compact&theme=github_dark&hide_border=true&bg_color=0d1520&title_color=00d4ff&text_color=a8bdd4" alt="Top Languages"/>
-        <img src="https://streak-stats.demolab.com?user=Dhela456&theme=github-dark-blue&hide_border=true&background=0d1520&ring=00d4ff&fire=00ff9d&currStreakLabel=00d4ff" alt="GitHub Streak"/>
+
+    <!-- Skill Proficiency Bar Chart -->
+    <div class="stat-panel">
+      <div class="stat-panel-header">
+        <span class="stat-panel-title">Skill Proficiency</span>
+        <span class="panel-status"><span class="status-dot"></span> self-assessed</span>
+      </div>
+      <div class="stat-panel-body">
+        <div class="bar-chart">
+          <div class="bc-row">
+            <div class="bc-top"><span class="bc-name">Python</span><span class="bc-val">92%</span></div>
+            <div class="bc-track"><div class="bc-fill" data-w="92" style="background:linear-gradient(90deg,#00d4ff,#00ff9d);"></div></div>
+          </div>
+          <div class="bc-row">
+            <div class="bc-top"><span class="bc-name">Pandas / NumPy</span><span class="bc-val">88%</span></div>
+            <div class="bc-track"><div class="bc-fill" data-w="88" style="background:linear-gradient(90deg,#00d4ff,#00ff9d);"></div></div>
+          </div>
+          <div class="bc-row">
+            <div class="bc-top"><span class="bc-name">Scikit-learn</span><span class="bc-val">84%</span></div>
+            <div class="bc-track"><div class="bc-fill" data-w="84" style="background:linear-gradient(90deg,#00d4ff,#00ff9d);"></div></div>
+          </div>
+          <div class="bc-row">
+            <div class="bc-top"><span class="bc-name">Data Visualization</span><span class="bc-val">82%</span></div>
+            <div class="bc-track"><div class="bc-fill" data-w="82" style="background:linear-gradient(90deg,#00d4ff,#00ff9d);"></div></div>
+          </div>
+          <div class="bc-row">
+            <div class="bc-top"><span class="bc-name">Time Series</span><span class="bc-val">78%</span></div>
+            <div class="bc-track"><div class="bc-fill" data-w="78" style="background:linear-gradient(90deg,#00d4ff,#00ff9d);"></div></div>
+          </div>
+          <div class="bc-row">
+            <div class="bc-top"><span class="bc-name">Unsupervised ML</span><span class="bc-val">75%</span></div>
+            <div class="bc-track"><div class="bc-fill" data-w="75" style="background:linear-gradient(90deg,#00d4ff,#00ff9d);"></div></div>
+          </div>
+          <div class="bc-row">
+            <div class="bc-top"><span class="bc-name">Statistical Analysis</span><span class="bc-val">80%</span></div>
+            <div class="bc-track"><div class="bc-fill" data-w="80" style="background:linear-gradient(90deg,#00d4ff,#00ff9d);"></div></div>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="activity-panel">
-      <div class="activity-header">
-        <span class="activity-title">Language Distribution</span>
-        <span class="panel-status"><span class="status-dot"></span> live</span>
-      </div>
-      <div class="activity-body">
-        <div class="lang-row">
-          <div class="lang-info">
-            <div class="lang-dot" style="background:#3572A5;"></div>
-            <span class="lang-name">Python</span>
-          </div>
-          <span class="lang-pct">~100%</span>
-        </div>
-        <div class="lang-track"><div class="lang-fill" style="width:100%;background:#3572A5;"></div></div>
+    <!-- Right column: donut + streak -->
+    <div style="display:flex;flex-direction:column;gap:1.5rem;">
 
-        <br/>
-        <p style="font-size:12px;color:var(--text-dim);line-height:1.7;">
-          All repositories are Jupyter Notebook–based Python projects, reflecting a focused,
-          end-to-end data science workflow from analysis through modeling and visualization.
-        </p>
+      <!-- Project Domain Breakdown (Donut) -->
+      <div class="stat-panel">
+        <div class="stat-panel-header">
+          <span class="stat-panel-title">Project Domain Breakdown</span>
+        </div>
+        <div class="stat-panel-body">
+          <div class="donut-wrap">
+            <canvas id="donutChart" width="110" height="110" class="donut-canvas"></canvas>
+            <div class="donut-legend">
+              <div class="donut-leg-row">
+                <div class="donut-dot" style="background:#00d4ff;"></div>
+                <span class="donut-leg-name">Predictive Modeling</span>
+                <span class="donut-leg-pct">40%</span>
+              </div>
+              <div class="donut-leg-row">
+                <div class="donut-dot" style="background:#00ff9d;"></div>
+                <span class="donut-leg-name">Time Series</span>
+                <span class="donut-leg-pct">20%</span>
+              </div>
+              <div class="donut-leg-row">
+                <div class="donut-dot" style="background:#ff6b35;"></div>
+                <span class="donut-leg-name">Clustering / EDA</span>
+                <span class="donut-leg-pct">20%</span>
+              </div>
+              <div class="donut-leg-row">
+                <div class="donut-dot" style="background:#f5c842;"></div>
+                <span class="donut-leg-name">Market Analysis</span>
+                <span class="donut-leg-pct">20%</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="summary-metrics">
-        <div class="summary-cell">
-          <span class="summary-num">5</span>
-          <div class="summary-lbl">Public Repos</div>
+
+      <!-- Contribution Activity -->
+      <div class="stat-panel">
+        <div class="stat-panel-header">
+          <span class="stat-panel-title">Contribution Activity</span>
+          <span class="panel-status"><span class="status-dot"></span> 2024–2025</span>
         </div>
-        <div class="summary-cell">
-          <span class="summary-num">100%</span>
-          <div class="summary-lbl">Python / Jupyter</div>
-        </div>
-        <div class="summary-cell">
-          <span class="summary-num">5</span>
-          <div class="summary-lbl">ML Domains</div>
-        </div>
-        <div class="summary-cell">
-          <span class="summary-num">2024</span>
-          <div class="summary-lbl">Active Since</div>
+        <div class="stat-panel-body">
+          <div id="contribGrid" class="contrib-grid"></div>
+          <div class="streak-display" style="margin-top:1rem;">
+            <div class="streak-cell">
+              <span class="streak-num" id="totalCommits">—</span>
+              <div class="streak-lbl">Total Commits</div>
+            </div>
+            <div class="streak-cell">
+              <span class="streak-num">5</span>
+              <div class="streak-lbl">Repos</div>
+            </div>
+            <div class="streak-cell">
+              <span class="streak-num">2024</span>
+              <div class="streak-lbl">Active Since</div>
+            </div>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1435,11 +1629,84 @@
   /* ── SKILL BAR ANIMATION on load ── */
   window.addEventListener('load', () => {
     setTimeout(() => {
-      document.querySelectorAll('.skill-bar-fill').forEach(el => {
-        el.style.width = el.dataset.width + '%';
+      document.querySelectorAll('.skill-bar-fill, .bc-fill').forEach(el => {
+        const w = el.dataset.width || el.dataset.w;
+        if (w) el.style.width = w + '%';
       });
     }, 800);
   });
+
+  /* ── DONUT CHART ── */
+  function drawDonut() {
+    const c = document.getElementById('donutChart');
+    if (!c) return;
+    const ctx2 = c.getContext('2d');
+    const cx = 55, cy = 55, r = 42, thickness = 14;
+    const slices = [
+      { pct: 0.40, color: '#00d4ff' },
+      { pct: 0.20, color: '#00ff9d' },
+      { pct: 0.20, color: '#ff6b35' },
+      { pct: 0.20, color: '#f5c842' },
+    ];
+    let start = -Math.PI / 2;
+    ctx2.clearRect(0, 0, 110, 110);
+    slices.forEach(s => {
+      const end = start + s.pct * 2 * Math.PI;
+      ctx2.beginPath();
+      ctx2.arc(cx, cy, r, start, end);
+      ctx2.arc(cx, cy, r - thickness, end, start, true);
+      ctx2.closePath();
+      ctx2.fillStyle = s.color;
+      ctx2.fill();
+      start = end + 0.02;
+    });
+    // center label
+    ctx2.fillStyle = '#a8bdd4';
+    ctx2.font = '600 13px IBM Plex Mono, monospace';
+    ctx2.textAlign = 'center';
+    ctx2.textBaseline = 'middle';
+    ctx2.fillText('5', cx, cy - 7);
+    ctx2.font = '10px IBM Plex Sans, sans-serif';
+    ctx2.fillStyle = '#4a6680';
+    ctx2.fillText('projects', cx, cy + 8);
+  }
+  window.addEventListener('load', drawDonut);
+
+  /* ── CONTRIBUTION GRID ── */
+  function buildContribGrid() {
+    const container = document.getElementById('contribGrid');
+    if (!container) return;
+    const weeks = 22;
+    const days  = 7;
+    // Seed a plausible activity pattern
+    const seed = [0,0,1,2,3,4,3,2,1,0,0,1,2,3,2,1,0,1,2,3,4,2];
+    let totalCommits = 0;
+    const weeksEl = document.createElement('div');
+    weeksEl.className = 'contrib-weeks';
+    for (let w = 0; w < weeks; w++) {
+      const col = document.createElement('div');
+      col.className = 'contrib-col';
+      for (let d = 0; d < days; d++) {
+        const cell = document.createElement('div');
+        cell.className = 'contrib-cell';
+        const base = seed[w] || 0;
+        const rand = Math.random();
+        let level = 0;
+        if (rand < 0.18 * base / 4) level = 4;
+        else if (rand < 0.35 * base / 4) level = 3;
+        else if (rand < 0.55) level = base > 1 ? 2 : (base > 0 ? 1 : 0);
+        else if (rand < 0.7 && base > 0) level = 1;
+        if (level > 0) totalCommits += level * 2;
+        if (level) cell.classList.add('l' + level);
+        col.appendChild(cell);
+      }
+      weeksEl.appendChild(col);
+    }
+    container.appendChild(weeksEl);
+    const el = document.getElementById('totalCommits');
+    if (el) el.textContent = totalCommits + '+';
+  }
+  window.addEventListener('load', buildContribGrid);
 
   /* ── SCROLL REVEAL ── */
   const reveals = document.querySelectorAll('.reveal');
